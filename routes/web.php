@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +17,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('pages.index');
 })->name('index');
+
+Route::get('/signup/student', function () {
+    return view('signup');
+})->name('student.signup');
+
+Route::get('/signup/teacher', function () {
+    return view('signup');
+})->name('teacher.signup');
 
 Auth::routes();
 
