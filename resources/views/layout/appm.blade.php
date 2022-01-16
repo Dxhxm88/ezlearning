@@ -18,7 +18,11 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-auto col-md-3 col-xl-2 px-sm px-0 sticky-top">
-                    @include('inc.sidebar')
+                    @if (Request::is('student/*'))
+                        @include('inc.studentsidebar')
+                    @else
+                        @include('inc.sidebar')
+                    @endif
                 </div>
                 <div class="col py-3">
                     <div class="container">

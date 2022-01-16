@@ -90,6 +90,42 @@ Route::get('/profile/edit', function () {
 })->name('user.edit');
 
 
+// Student
+Route::prefix('student')->group(function () {
+
+    Route::get('/homepage', function () {
+        return view('pages.student.homepage');
+    })->name('student.home');
+
+    // Assessment
+    Route::get('/assessment', function () {
+        return view('pages.student.assessment.view');
+    })->name('student.assessment.view');
+
+    Route::get('/assessment/view', function () {
+        return view('pages.student.assessment.assessment');
+    })->name('student.assessment.detail');
+
+    // Subject
+    Route::get('/subject', function () {
+        return view('pages.student.subject.view');
+    })->name('student.subject.view');
+
+    Route::get('/subject/add', function () {
+        return view('pages.student.subject.add');
+    })->name('student.subject.add');
+
+    // Profile
+    Route::get('/profile', function () {
+        return view('pages.student.profile.profile');
+    })->name('student.profile');
+
+    Route::get('/profile/edit', function () {
+        return view('pages.student.profile.edit');
+    })->name('student.profile.edit');
+});
+
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
