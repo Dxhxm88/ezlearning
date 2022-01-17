@@ -34,12 +34,12 @@
     <hr>
         <div class="dropdown">
             <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle nav-link" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
-                <strong>Abu</strong>
+                <strong>{{ Auth::user()->name }}</strong>
             </a>
             <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
                 <li><a class="dropdown-item" href="{{ route('user.profile') }}">Profile</a></li>
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">Sign out</a></li>
+                <li><a class="dropdown-item" href="{{ route('signout') }}">Sign out</a></li>
             </ul>
         </div>
 </div>

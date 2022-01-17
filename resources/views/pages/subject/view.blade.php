@@ -23,21 +23,13 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Science</td>
-                    <td><a href="{{ route('subject.edit') }}" class="link-dark">Edit</a></td>
-                    <td>Delete</td>
-                </tr>
-                <tr>
-                    <td>Science</td>
-                    <td>Edit</td>
-                    <td>Delete</td>
-                </tr>
-                <tr>
-                    <td>Science</td>
-                    <td>Edit</td>
-                    <td>Delete</td>
-                </tr>
+                @foreach ($subjects as $subject)
+                    <tr>
+                        <td>{{ $subject->name }}</td>
+                        <td><a href="{{ route('subject.edit', $subject->id) }}" class="link-dark">Edit</a></td>
+                        <td><a class="link-dark" href="{{ route('subject.delete', $subject->id) }}" onclick="return confirm('Are sure to delete data?')">Delete</a></td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
     </div>

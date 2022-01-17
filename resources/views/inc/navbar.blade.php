@@ -18,13 +18,13 @@
                 @guest
                     @if (Route::has('login'))
                         <li class="nav-item">
-                            <a class="nav-link text-dark fw-bold" href="{{ route('login') }}">SIGN IN</a>
+                            <a class="nav-link text-dark fw-bold" href="{{ route('signin') }}">SIGN IN</a>
                         </li>
                     @endif
 
                     @if (Route::has('register'))
                         <li class="nav-item">
-                            <a class="nav-link text-dark fw-bold" href="{{ route('register') }}">SIGN UP</a>
+                            <a class="nav-link text-dark fw-bold" href="{{ route('signup') }}">SIGN UP</a>
                         </li>
                     @endif
                 @else

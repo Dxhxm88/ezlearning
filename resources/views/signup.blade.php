@@ -12,7 +12,7 @@
                 @endif
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="{{ route('teacher.signup.create') }}">
                         @csrf
 
                         <div class="row mb-3">
@@ -44,12 +44,12 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="ic_num" class="col-md-4 col-form-label text-md-end">{{ __('Identification Number') }}</label>
+                            <label for="ic" class="col-md-4 col-form-label text-md-end">{{ __('Identification Number') }}</label>
 
                             <div class="col-md-6">
-                                <input id="ic_num" type="text" class="form-control @error('ic_num') is-invalid @enderror" name="ic_num" value="{{ old('ic_num') }}" required autocomplete="ic_num" autofocus>
+                                <input id="ic" type="text" class="form-control @error('ic') is-invalid @enderror" name="ic" value="{{ old('ic') }}" required autocomplete="ic" autofocus>
 
-                                @error('ic_num')
+                                @error('ic')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -64,20 +64,6 @@
                                 <textarea id="address" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ old('address') }}" required autocomplete="address" autofocus></textarea>
 
                                 @error('address')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="username" class="col-md-4 col-form-label text-md-end">{{ __('Username') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus>
-
-                                @error('username')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

@@ -16,18 +16,12 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Ali</td>
-                    <td>Remove</td>
-                </tr>
-                <tr>
-                    <td>Abu</td>
-                    <td>Remove</td>
-                </tr>
-                <tr>
-                    <td>Ahmad</td>
-                    <td>Remove</td>
-                </tr>
+                @foreach ($classes as $class)
+                    <tr>
+                        <td>{{ $class->name }}</td>
+                        <td>Remove</td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
     </div>

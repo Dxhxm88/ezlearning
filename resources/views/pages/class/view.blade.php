@@ -25,27 +25,15 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>6 Alpha</td>
-                    <td>Science</td>
-                    <td><a href="{{ route('class.detail') }}" class="link-dark">View</a></td>
-                    <td><a href="{{ route('class.edit') }}" class="link-dark">Edit</a></td>
-                    <td>Delete</td>
-                </tr>
-                <tr>
-                    <td>6 Beta</td>
-                    <td>Science</td>
-                    <td>View</td>
-                    <td>Edit</td>
-                    <td>Delete</td>
-                </tr>
-                <tr>
-                    <td>6 Giga</td>
-                    <td>Science</td>
-                    <td>View</td>
-                    <td>Edit</td>
-                    <td>Delete</td>
-                </tr>
+                @foreach ($classes as $class)
+                    <tr>
+                        <td>{{ $class->name }}</td>
+                        <td>Science</td>
+                        <td><a href="{{ route('class.detail', $class->id) }}" class="link-dark">View</a></td>
+                        <td><a href="{{ route('class.edit') }}" class="link-dark">Edit</a></td>
+                        <td><a class="link-dark" href="{{ route('class.delete', $class->id) }}" onclick="return confirm('Are sure to delete data?')">Delete</a></td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
     </div>

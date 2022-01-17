@@ -1,5 +1,12 @@
 <?php
 
+use App\Http\Controllers\Auth\SigninController;
+use App\Http\Controllers\Auth\Teacher\RegisterController;
+use App\Http\Controllers\Auth\Teacher\LogoutController;
+use App\Http\Controllers\Teacher\ClassController;
+use App\Http\Controllers\Teacher\HomeController;
+use App\Http\Controllers\Teacher\ProfileController;
+use App\Http\Controllers\Teacher\SubjectController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -30,9 +37,16 @@ Route::get('/signup', function () {
     return view('opsignup');
 })->name('signup');
 
-Route::get('/homepage', function () {
-    return view('pages.homepage');
-})->name('homepage');
+// Login
+Route::get('/signin', [SigninController::class, 'showLoginForm'])->name('signin');
+Route::post('/signin', [SigninController::class, 'login'])->name('signin.login');
+
+// Signout
+Route::get('signout', [LogoutController::class, 'signOut'])->name('signout');
+
+Route::post('/signup/teacher', [RegisterController::class, 'register'])->name('teacher.signup.create');
+
+Route::get('/homepage', [HomeController::class, 'showHomePage'])->name('homepage');
 
 
 // Assessment
@@ -50,44 +64,25 @@ Route::get('/assessment/submission', function () {
 
 
 // Class
-Route::get('/class/list', function () {
-    return view('pages.class.view');
-})->name('class.list');
-
-Route::get('/class/add', function () {
-    return view('pages.class.add');
-})->name('class.add');
-
-Route::get('/class/edit', function () {
-    return view('pages.class.edit');
-})->name('class.edit');
-
-Route::get('/class/detail', function () {
-    return view('pages.class.viewdetail');
-})->name('class.detail');
+Route::get('/class/list', [ClassController::class, 'showClass'])->name('class.list');
+Route::get('/class/add', [ClassController::class, 'showAddClass'])->name('class.add');
+Route::get('/class/edit', [ClassController::class, 'showEdit'])->name('class.edit');
+Route::get('/class/detail/{id}', [ClassController::class, 'showDetail'])->name('class.detail');
+Route::get('/class/delete/{id}', [ClassController::class, 'delete'])->name('class.delete');
 
 
 // Subject
-Route::get('/subject/list', function () {
-    return view('pages.subject.view');
-})->name('subject.list');
-
-Route::get('/subject/add', function () {
-    return view('pages.subject.add');
-})->name('subject.add');
-
-Route::get('/subject/edit', function () {
-    return view('pages.subject.edit');
-})->name('subject.edit');
+Route::get('/subject/list', [SubjectController::class, 'showSubject'])->name('subject.list');
+Route::get('/subject/add', [SubjectController::class, 'showAddSubject'])->name('subject.add');
+Route::post('/subject/add', [SubjectController::class, 'addSubject'])->name('subject.add.post');
+Route::get('/subject/delete/{id}', [SubjectController::class, 'delete'])->name('subject.delete');
+Route::get('/subject/edit/{id}', [SubjectController::class, 'showEdit'])->name('subject.edit');
+Route::post('/subject/edit/{id}', [SubjectController::class, 'edit'])->name('subject.edit.post');
 
 // User
-Route::get('/profile', function () {
-    return view('pages.user.profile');
-})->name('user.profile');
-
-Route::get('/profile/edit', function () {
-    return view('pages.user.edit');
-})->name('user.edit');
+Route::get('/profile', [ProfileController::class, 'showProfile'])->name('user.profile');
+Route::get('/profile/edit', [ProfileController::class, 'showEditProfile'])->name('user.edit');
+Route::post('/profile/edit/{id}', [ProfileController::class, 'update'])->name('user.update');
 
 
 // Student

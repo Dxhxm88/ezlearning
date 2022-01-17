@@ -17,7 +17,7 @@
                             @csrf
 
                             <div class="row mb-3">
-                                <label for="desc" class="col-md-4 col-form-label text-md-end">Assessment Description</label>
+                                <label for="desc" class="col-md-2 col-form-label text-md-end">Assessment Description</label>
 
                                 <div class="col">
                                     <input id="desc" type="text" class="form-control @error('desc') is-invalid @enderror" name="desc" value="{{ old('desc') }}" required autocomplete="desc" autofocus>
@@ -31,7 +31,7 @@
                             </div>
 
                             <div class="row mb-3">
-                                <label for="sclass" class="col-md-4 col-form-label text-md-end">Class</label>
+                                <label for="sclass" class="col-md-2 col-form-label text-md-end">Class</label>
 
                                 <div class="col">
                                     <select class="form-control form-select">
@@ -50,7 +50,7 @@
                             </div>
 
                             <div class="row mb-3">
-                                <label for="duedate" class="col-md-4 col-form-label text-md-end">Date Due</label>
+                                <label for="duedate" class="col-md-2 col-form-label text-md-end">Date Due</label>
 
                                 <div class="col">
                                     <input id="duedate" type="date" class="form-control @error('duedate') is-invalid @enderror" name="duedate" value="{{ old('duedate') }}" required autocomplete="duedate">
@@ -64,7 +64,7 @@
                             </div>
 
                             <div class="row mb-3">
-                                <label for="fullgrade" class="col-md-4 col-form-label text-md-end">Full Grade</label>
+                                <label for="fullgrade" class="col-md-2 col-form-label text-md-end">Full Grade</label>
 
                                 <div class="col">
                                     <input id="fullgrade" type="text" class="form-control @error('fullgrade') is-invalid @enderror" name="fullgrade" value="{{ old('fullgrade') }}" required autocomplete="fullgrade">
@@ -78,7 +78,7 @@
                             </div>
 
                             <div class="row mb-3">
-                                <label for="weightage" class="col-md-4 col-form-label text-md-end">Weightage</label>
+                                <label for="weightage" class="col-md-2 col-form-label text-md-end">Weightage</label>
 
                                 <div class="col">
                                     <input id="weightage" type="text" class="form-control @error('weightage') is-invalid @enderror" name="weightage" value="{{ old('weightage') }}" required autocomplete="weightage">
@@ -92,7 +92,7 @@
                             </div>
 
                             <div class="row mb-3">
-                                <label for="upfile" class="col-md-4 col-form-label text-md-end">Choose File</label>
+                                <label for="upfile" class="col-md-2 col-form-label text-md-end">Choose File</label>
 
                                 <div class="col">
                                     <input id="upfile" type="file" class="form-control @error('upfile') is-invalid @enderror" name="upfile" value="{{ old('upfile') }}" required autocomplete="upfile">
