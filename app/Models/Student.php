@@ -4,10 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Student extends Model
+class Student extends Authenticatable
 {
     use HasFactory;
+
+    protected $guard = 'student';
 
     /**
      * The attributes that are mass assignable.
@@ -51,5 +54,10 @@ class Student extends Model
     public function classses()
     {
         return $this->belongsTo(Classs::class);
+    }
+
+    public function assessments()
+    {
+        return $this->hasMany(Assessment::class);
     }
 }

@@ -7,8 +7,13 @@ use App\Http\Controllers\Teacher\ClassController;
 use App\Http\Controllers\Teacher\HomeController;
 use App\Http\Controllers\Teacher\ProfileController;
 use App\Http\Controllers\Teacher\SubjectController;
+use App\Models\Classs;
+use App\Models\Student;
+use App\Models\Subject;
+use App\Models\Teacher;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +29,22 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/', function () {
     return view('pages.index');
 })->name('index');
+
+Route::get('/tt', function () {
+    $teacher = Teacher::find(1);
+
+    // $isFound = $teacher->subjects->find(1)->classses;
+    $isFound = $teacher->subjects()->find(5)->classses;
+    // $q = DB::table('classs_subject')
+    //     ->where('subject_id', 1)
+    //     ->where('teacher_name', 1)
+    //     ->get();
+    // return Teacher::find(Auth::user()->id)->subjects->find(2)->classses;
+    // return Teacher::find(Auth::user()->id)->subjects()->find(1);
+    // return $teacher->load(['subjects', 'classses']);
+    return $isFound;
+    // return $;
+});
 
 Route::get('/signup/student', function () {
     return view('signup');
@@ -41,48 +62,64 @@ Route::get('/signup', function () {
 Route::get('/signin', [SigninController::class, 'showLoginForm'])->name('signin');
 Route::post('/signin', [SigninController::class, 'login'])->name('signin.login');
 
-// Signout
-Route::get('signout', [LogoutController::class, 'signOut'])->name('signout');
+Route::middleware('auth:teacher')->group(function () {
 
-Route::post('/signup/teacher', [RegisterController::class, 'register'])->name('teacher.signup.create');
+    // Signout
+    Route::get('signout', [LogoutController::class, 'signOut'])->name('signout');
 
-Route::get('/homepage', [HomeController::class, 'showHomePage'])->name('homepage');
+    Route::post('/signup/teacher', [RegisterController::class, 'register'])->name('teacher.signup.create');
 
-
-// Assessment
-Route::get('/assessment/add', function () {
-    return view('pages.assessment.assessment');
-})->name('assessment.add');
-
-Route::get('/assessment/view', function () {
-    return view('pages.assessment.view');
-})->name('assessment.view');
-
-Route::get('/assessment/submission', function () {
-    return view('pages.assessment.submission');
-})->name('assessment.submission');
+    Route::get('/homepage', [HomeController::class, 'showHomePage'])->name('homepage');
 
 
-// Class
-Route::get('/class/list', [ClassController::class, 'showClass'])->name('class.list');
-Route::get('/class/add', [ClassController::class, 'showAddClass'])->name('class.add');
-Route::get('/class/edit', [ClassController::class, 'showEdit'])->name('class.edit');
-Route::get('/class/detail/{id}', [ClassController::class, 'showDetail'])->name('class.detail');
-Route::get('/class/delete/{id}', [ClassController::class, 'delete'])->name('class.delete');
+    // Assessment
+    Route::get('/assessment/add', function () {
+        return view('pages.assessment.assessment');
+    })->name('assessment.add');
+
+    Route::get('/assessment/view', function () {
+        return view('pages.assessment.view');
+    })->name('assessment.view');
+
+    Route::get('/assessment/submission', function () {
+        return view('pages.assessment.submission');
+    })->name('assessment.submission');
 
 
-// Subject
-Route::get('/subject/list', [SubjectController::class, 'showSubject'])->name('subject.list');
-Route::get('/subject/add', [SubjectController::class, 'showAddSubject'])->name('subject.add');
-Route::post('/subject/add', [SubjectController::class, 'addSubject'])->name('subject.add.post');
-Route::get('/subject/delete/{id}', [SubjectController::class, 'delete'])->name('subject.delete');
-Route::get('/subject/edit/{id}', [SubjectController::class, 'showEdit'])->name('subject.edit');
-Route::post('/subject/edit/{id}', [SubjectController::class, 'edit'])->name('subject.edit.post');
+    // Class
+    Route::get('/class/list', [ClassController::class, 'showClass'])->name('class.list');
+    Route::get('/class/add', [ClassController::class, 'showAddClass'])->name('class.add');
+    Route::post('/class/add', [ClassController::class, 'addClass'])->name('class.adding');
+    Route::get('/class/edit/{id}', [ClassController::class, 'showEdit'])->name('class.edit');
+    Route::post('/class/edit/{id}', [ClassController::class, 'editclass'])->name('class.editing');
+    Route::get('/class/detail/{id}', [ClassController::class, 'showDetail'])->name('class.detail');
+    Route::get('/class/delete/{id}', [ClassController::class, 'delete'])->name('class.delete');
+    Route::get('/class/myclass', [ClassController::class, 'showMyClass'])->name('class.myclass');
+    Route::get('/class/myclass/add', [ClassController::class, 'showAddMyClass'])->name('class.myclass.add');
+    Route::post('/class/myclass/add', [ClassController::class, 'addmyclass'])->name('class.myclass.adding');
+    Route::get('/class/myclass/delete/{id}', [ClassController::class, 'deletemyclass'])->name('class.myclass.delete');
 
-// User
-Route::get('/profile', [ProfileController::class, 'showProfile'])->name('user.profile');
-Route::get('/profile/edit', [ProfileController::class, 'showEditProfile'])->name('user.edit');
-Route::post('/profile/edit/{id}', [ProfileController::class, 'update'])->name('user.update');
+
+    // Subject
+    Route::get('/subject/list', [SubjectController::class, 'showSubject'])->name('subject.list');
+    Route::get('/subject/add', [SubjectController::class, 'showAddSubject'])->name('subject.add');
+    Route::post('/subject/add', [SubjectController::class, 'addSubject'])->name('subject.add.post');
+    Route::get('/subject/delete/{id}', [SubjectController::class, 'delete'])->name('subject.delete');
+    Route::get('/subject/edit/{id}', [SubjectController::class, 'showEdit'])->name('subject.edit');
+    Route::post('/subject/edit/{id}', [SubjectController::class, 'edit'])->name('subject.edit.post');
+    Route::get('/subject/mysubject', [SubjectController::class, 'showmysubject'])->name('subject.mysubject');
+    Route::get('/subject/mysubject/add', [SubjectController::class, 'showaddmysubject'])->name('subject.mysubject.add');
+    Route::post('/subject/mysubject/add', [SubjectController::class, 'addmysubject'])->name('subject.mysubject.adding');
+    Route::get('/subject/mysubject/delete/{id}', [SubjectController::class, 'deletemysubject'])->name('subject.mysubject.delete');
+    Route::get('/subject/mysubject/detail/{id}', [SubjectController::class, 'showmysubjectdetail'])->name('subject.mysubject.detail');
+    Route::get('/subject/mysubject/detail/{subject?}/{id?}', [SubjectController::class, 'deletemyclasssubject'])->name('subject.mysubject.class.delete');
+
+    // User
+    Route::get('/profile', [ProfileController::class, 'showProfile'])->name('user.profile');
+    Route::get('/profile/edit', [ProfileController::class, 'showEditProfile'])->name('user.edit');
+    Route::post('/profile/edit/{id}', [ProfileController::class, 'update'])->name('user.update');
+});
+
 
 
 // Student

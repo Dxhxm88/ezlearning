@@ -1,6 +1,6 @@
 <div class="d-flex flex-column bg-light align-items-center align-items-sm-start px-3 pt-2 pb-4 text-white min-vh-100 sticky-top">
     <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-        <span class="fs-4 fw-bold">EZ-LEARNING</span>
+        <span class="fs-4 fw-bold">CAST</span>
     </a>
     <ul class="nav nav-pills flex-column mb-auto mt-3">
         <li class="nav-item">
@@ -26,7 +26,7 @@
             </a>
         </li>
         <li>
-            <a href="{{ route('subject.list') }}" class="nav-link link-dark">
+            <a href="{{ route('subject.mysubject') }}" class="nav-link link-dark">
                 Subject
             </a>
         </li>

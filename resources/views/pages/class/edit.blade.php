@@ -13,16 +13,16 @@
                 <div class="card-header">CLASS DETAIL</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="{{ route('class.editing', $class->id) }}">
                         @csrf
 
                         <div class="row mb-3">
-                            <label for="desc" class="col-md-4 col-form-label text-md-end">Class Name</label>
+                            <label for="name" class="col-md-4 col-form-label text-md-end">Class Name</label>
 
                             <div class="col">
-                                <input id="desc" type="text" class="form-control @error('desc') is-invalid @enderror" name="desc" value="{{ old('desc') }}" required autocomplete="desc" autofocus>
+                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $class->name }}" required autocomplete="name" autofocus>
 
-                                @error('desc')
+                                @error('name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -30,7 +30,7 @@
                             </div>
                         </div>
 
-                        <div class="row mb-3">
+                        {{-- <div class="row mb-3">
                             <label for="sclass" class="col-md-4 col-form-label text-md-end">Subject</label>
 
                             <div class="col">
@@ -46,7 +46,7 @@
                                     </span>
                                 @enderror
                             </div>
-                        </div>
+                        </div> --}}
 
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">

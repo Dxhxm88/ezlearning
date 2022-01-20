@@ -10,6 +10,8 @@ class Teacher extends Authenticatable
 {
     use HasFactory;
 
+    protected $guard = 'teacher';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -42,4 +44,14 @@ class Teacher extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function subjects()
+    {
+        return $this->belongsToMany(Subject::class)->withTimestamps();
+    }
+
+    public function classses()
+    {
+        return $this->hasManyThrough(Classs::class, Subject::class);
+    }
 }

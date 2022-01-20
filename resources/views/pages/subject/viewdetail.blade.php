@@ -3,13 +3,13 @@
 @section('content')
     <div class="p-2 mb-4 bg-light rounded-3">
         <div class="container-fluid">
-            <h1 class="display-5 fw-bold">CLASS LIST</h1>
+            <h1 class="display-5 fw-bold">DETAILS CLASS</h1>
         </div>
     </div>
 
     <div class="row">
-        <div class="col d-flex justify-content-end">
-            <a href="{{ route('class.add') }}" class="btn btn-primary">Add Class</a>
+        <div class="col d-flex justify-content-start mb-3">
+            <a href="{{ route('subject.mysubject') }}" class="btn btn-secondary">Back</a>
         </div>
     </div>
 
@@ -18,18 +18,16 @@
             <thead>
                 <tr>
                     <th>Class Name</th>
-                    <th>Students</th>
-                    <th></th>
-                    <th></th>
+                    <th>View Student</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($classes as $class)
+                @foreach ($classses as $class)
                     <tr>
                         <td>{{ $class->name }}</td>
                         <td><a href="{{ route('class.detail', $class->id) }}" class="link-dark">View</a></td>
-                        <td><a href="{{ route('class.edit', $class->id) }}" class="link-dark">Edit</a></td>
-                        <td><a class="link-dark" href="{{ route('class.delete', $class->id) }}" onclick="return confirm('Are sure to delete data?')">Delete</a></td>
+                        <td><a class="link-dark" href="{{ route('subject.mysubject.class.delete', [ 'subject' => request()->route('id'), 'id' => $class->id]) }}" onclick="return confirm('Are sure to delete data?')">Remove</a></td>
                     </tr>
                 @endforeach
             </tbody>

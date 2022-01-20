@@ -8,6 +8,9 @@
     </div>
 
     <div class="row">
+        <div class="col d-flex justify-content-start">
+            <a href="{{ route('subject.mysubject') }}" class="btn btn-secondary">Back</a>
+        </div>
         <div class="col d-flex justify-content-end">
             <a href="{{ route('subject.add') }}" class="btn btn-primary">Add Subject</a>
         </div>

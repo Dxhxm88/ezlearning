@@ -17,4 +17,19 @@ class Subject extends Model
     protected $fillable = [
         'name',
     ];
+
+    public function teachers()
+    {
+        return $this->belongsToMany(Teacher::class)->withTimestamps();
+    }
+
+    public function classses()
+    {
+        return $this->belongsToMany(Classs::class)->withPivot('teacher_id', 'created_at');
+    }
+
+    public function assessments()
+    {
+        return $this->hasMany(Assessment::class);
+    }
 }

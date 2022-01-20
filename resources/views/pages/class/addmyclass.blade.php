@@ -3,7 +3,7 @@
 @section('content')
     <div class="p-2 mb-4 bg-light rounded-3">
         <div class="container-fluid">
-            <h1 class="display-5 fw-bold">ADD CLASS</h1>
+            <h1 class="display-5 fw-bold">ADD MY CLASS</h1>
         </div>
     </div>
 
@@ -13,16 +13,21 @@
                 <div class="card-header">CLASS DETAIL</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('class.adding') }}">
+                    <form method="POST" action="{{ route('class.myclass.adding') }}">
                         @csrf
 
                         <div class="row mb-3">
-                            <label for="name" class="col-md-2 col-form-label text-md-end">Class Name</label>
+                            <label for="classs" class="col-md-2 col-form-label text-md-end">Class</label>
 
                             <div class="col">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                <select name="classs" class="form-control form-select" required>
+                                    <option value="" disabled selected>Select class</option>
+                                    @foreach ($classses as $classs)
+                                        <option value="{{ $classs->id }}">{{ $classs->name }}</option>
+                                    @endforeach
+                                </select>
 
-                                @error('name')
+                                @error('classs')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -30,31 +35,31 @@
                             </div>
                         </div>
 
-                        {{-- <div class="row mb-3">
-                            <label for="sclass" class="col-md-2 col-form-label text-md-end">Subject</label>
+                        <div class="row mb-3">
+                            <label for="subject" class="col-md-2 col-form-label text-md-end">Subject</label>
 
                             <div class="col">
-                                <select class="form-control form-select">
+                                <select name="subject" class="form-control form-select">
                                     <option value="" disabled selected>Select subject</option>
                                     @foreach ($subjects as $subject)
                                         <option value="{{ $subject->id }}">{{ $subject->name }}</option>
                                     @endforeach
                                 </select>
 
-                                @error('sclass')
+                                @error('subject')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
-                        </div> --}}
+                        </div>
 
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Add') }}
                                 </button>
-                                <a href="{{ route('class.list') }}" class="btn btn-secondary ms-4">
+                                <a href="{{ route('class.myclass') }}" class="btn btn-secondary ms-4">
                                     Back
                                 </a>
                             </div>
