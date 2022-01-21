@@ -28,21 +28,44 @@
                         </li>
                     @endif
                 @else
+                    <li class="nav-item">
+                        @if (Auth::guard('teacher')->check())
+                            <a class="nav-link text-dark" href="{{ route('homepage') }}">Dashboard</a>
+                        @else
+                            <a class="nav-link text-dark" href="{{ route('student.home') }}">Student Dashboard</a>
+                        @endif
+                    </li>
                     <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            {{ Auth::user()->name }}
+                        <a id="navbarDropdown" class="nav-link text-dark dropdown-toggle fw-bold" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            @if (Auth::guard('teacher')->check())
+                                {{ Auth::user()->name }}
+                            @else
+                                {{ Auth::guard('student')->user()->name }}
+                            @endif
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item " href="{{ route('logout') }}"
-                                onclick="event.preventDefault();
-                                            document.getElementById('logout-form').submit();">
-                                {{ __('Logout') }}
-                            </a>
+                            @if (Auth::guard('teacher')->check())
+                                <a class="dropdown-item " href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
+                                                document.getElementById('logout-form').submit();">
+                                    {{ __('Logout') }}
+                                </a>
 
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                @csrf
-                            </form>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                            @else
+                                <a class="dropdown-item " href="{{ route('student.signout') }}"
+                                    onclick="event.preventDefault();
+                                                document.getElementById('logout-form').submit();">
+                                    {{ __('Logout') }}
+                                </a>
+
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                            @endif
                         </div>
                     </li>
                 @endguest

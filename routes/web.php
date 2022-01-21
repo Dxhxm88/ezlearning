@@ -3,13 +3,21 @@
 use App\Http\Controllers\Auth\SigninController;
 use App\Http\Controllers\Auth\Teacher\RegisterController;
 use App\Http\Controllers\Auth\Teacher\LogoutController;
+use App\Http\Controllers\RegisterController as ControllersRegisterController;
+use App\Http\Controllers\Student\AssessmentController as StudentAssessmentController;
+use App\Http\Controllers\Student\ProfileController as StudentProfileController;
+use App\Http\Controllers\Student\RegisterController as StudentRegisterController;
+use App\Http\Controllers\Student\SubjectController as StudentSubjectController;
+use App\Http\Controllers\Teacher\AssessmentController;
 use App\Http\Controllers\Teacher\ClassController;
 use App\Http\Controllers\Teacher\HomeController;
 use App\Http\Controllers\Teacher\ProfileController;
 use App\Http\Controllers\Teacher\SubjectController;
+use App\Models\Assessment;
 use App\Models\Classs;
 use App\Models\Student;
 use App\Models\Subject;
+use App\Models\Submission;
 use App\Models\Teacher;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -31,60 +39,93 @@ Route::get('/', function () {
 })->name('index');
 
 Route::get('/tt', function () {
-    $teacher = Teacher::find(1);
+    $teacher = Teacher::find(1)->id;
+    $student = Student::find(1)->classs_id;
+    $student_id = Student::find(1)->id;
 
-    // $isFound = $teacher->subjects->find(1)->classses;
-    $isFound = $teacher->subjects()->find(5)->classses;
-    // $q = DB::table('classs_subject')
-    //     ->where('subject_id', 1)
-    //     ->where('teacher_name', 1)
+    // $isFound = $teacher->subjects()->find(5)->classses;
+    // return Subject::find(1)->classses()->wherePivot('teacher_id', 1)->get();
+    // return Submission::find(1)->students();
+
+    $tt = Classs::find(1)->assessments()->where('teacher_id', $teacher)->where('subject_id', 1)->get();
+
+
+    // $dd = DB::table('submissions')
+    //     ->join('students', 'submissions.student_id', '=', 'students.id')
+    //     // ->join('assessments', 'submissions.assessment_id', '=', 'assessments.id')
+    //     // ->select('students.name', 'submissions.*', 'assessments.*')
+    //     ->select('students.name', 'submissions.*')
+    //     ->where('submissions.assessment_id', 1)
     //     ->get();
-    // return Teacher::find(Auth::user()->id)->subjects->find(2)->classses;
-    // return Teacher::find(Auth::user()->id)->subjects()->find(1);
-    // return $teacher->load(['subjects', 'classses']);
-    return $isFound;
-    // return $;
+    // // return $dd;
+    // // return $;
+
+    // $h = DB::table('classs_subject')
+    //     ->join('classses', 'classs_subject.classs_id', '=', 'classses.id')
+    //     ->join('subjects', 'classs_subject.subject_id', '=', 'subjects.id')
+    //     ->join('teachers', 'classs_subject.teacher_id', '=', 'teachers.id')
+    //     ->select('subjects.name', 'subjects.id as subject_id', 'teachers.name as teacher_name')
+    //     ->where('classs_subject.classs_id', $student)
+    //     ->get();
+
+    // $t = DB::table('assessments')
+    //     ->join('subjects', 'assessments.subject_id', '=', 'subjects.id')
+    //     ->join('teachers', 'assessments.teacher_id', '=', 'teachers.id')
+    //     // ->join('submissions', 'assessments.id', '=', 'submissions.assessment_id')
+    //     // ->select('assessments.*', 'subjects.name as subject_name', 'teachers.name as teacher_name', 'submissions.*')
+    //     ->select('assessments.*', 'subjects.name as subject_name', 'teachers.name as teacher_name')
+    //     ->where('assessments.classs_id', $student)
+    //     ->where('assessments.subject_id', 1)
+    //     ->get();
+
+    $t = DB::table('submissions')
+        ->join('assessments', 'submissions.assessment_id', '=', 'assessments.id')
+        ->select('submissions.*')
+        ->where('submissions.assessment_id', 1)
+        ->where('submissions.student_id', 2)
+        ->get();
+
+    $t = DB::table('submissions')
+        ->join('assessments', 'submissions.assessment_id', '=', 'assessments.id')
+        ->select('submissions.*')
+        ->where('submissions.assessment_id', 1)
+        ->where('submissions.student_id', 2)
+        ->get();
+
+    $k = Assessment::find(1)->submissions;
+    return $t;
 });
 
-Route::get('/signup/student', function () {
-    return view('signup');
-})->name('student.signup');
-
-Route::get('/signup/teacher', function () {
-    return view('signup');
-})->name('teacher.signup');
-
-Route::get('/signup', function () {
-    return view('opsignup');
-})->name('signup');
+// Register
+Route::get('/signup/student', [ControllersRegisterController::class, 'showStudentSignup'])->name('student.signup');
+Route::get('/signup/teacher', [ControllersRegisterController::class, 'showSignup'])->name('teacher.signup');
+Route::get('/signup', [ControllersRegisterController::class, 'showSignupOption'])->name('signup');
+Route::post('/signup/teacher', [RegisterController::class, 'register'])->name('teacher.signup.create');
+Route::post('/signup/student', [StudentRegisterController::class, 'register'])->name('student.signup.create');
 
 // Login
 Route::get('/signin', [SigninController::class, 'showLoginForm'])->name('signin');
 Route::post('/signin', [SigninController::class, 'login'])->name('signin.login');
 
+Route::post('/signin/student', [SigninController::class, 'studentlogin'])->name('signin.login.student');
+
 Route::middleware('auth:teacher')->group(function () {
 
     // Signout
     Route::get('signout', [LogoutController::class, 'signOut'])->name('signout');
-
-    Route::post('/signup/teacher', [RegisterController::class, 'register'])->name('teacher.signup.create');
-
     Route::get('/homepage', [HomeController::class, 'showHomePage'])->name('homepage');
-
 
     // Assessment
     Route::get('/assessment/add', function () {
         return view('pages.assessment.assessment');
     })->name('assessment.add');
 
-    Route::get('/assessment/view', function () {
-        return view('pages.assessment.view');
-    })->name('assessment.view');
+    Route::get('/assessment/subject/{subject?}/class/{class?}', [AssessmentController::class, 'showClassAssessment'])->name('assessment.view');
+    Route::get('/assessment/subject/{subject?}/class/{class?}/add', [AssessmentController::class, 'showAddClassAssessment'])->name('assessment.class.add');
+    Route::post('/assessment/subject/{subject?}/class/{class?}/add', [AssessmentController::class, 'addClassAssessment'])->name('assessment.class.adding');
 
-    Route::get('/assessment/submission', function () {
-        return view('pages.assessment.submission');
-    })->name('assessment.submission');
-
+    Route::get('/assessment/subject/{subject?}/class/{class?}/{assessment?}/submission', [AssessmentController::class, 'showSubmission'])->name('assessment.submission');
+    // Route::get('/assessment/subject/{subject?}/class/{class?}/submission', [AssessmentController::class, 'showSubmission'])->name('assessment.submission');
 
     // Class
     Route::get('/class/list', [ClassController::class, 'showClass'])->name('class.list');
@@ -120,41 +161,33 @@ Route::middleware('auth:teacher')->group(function () {
     Route::post('/profile/edit/{id}', [ProfileController::class, 'update'])->name('user.update');
 });
 
-
-
 // Student
-Route::prefix('student')->group(function () {
+Route::prefix('student')->middleware('auth:student')->group(function () {
+
+    // Signout
+    Route::get('signout', [LogoutController::class, 'signOut'])->name('student.signout');
 
     Route::get('/homepage', function () {
         return view('pages.student.homepage');
     })->name('student.home');
 
     // Assessment
-    Route::get('/assessment', function () {
-        return view('pages.student.assessment.view');
-    })->name('student.assessment.view');
-
-    Route::get('/assessment/view', function () {
-        return view('pages.student.assessment.assessment');
-    })->name('student.assessment.detail');
+    Route::get('/assessment/subject', [StudentAssessmentController::class, 'showSubjectAss'])->name('student.assessment.view');
+    Route::get('/assessment/subject/{subject?}', [StudentAssessmentController::class, 'showAssessments'])->name('student.assessment.view.subject');
+    Route::get('/assessment/subject/{subject?}/assessment/{assessment?}', [StudentAssessmentController::class, 'showSubmission'])->name('student.assessment.detail');
+    Route::post('/assessment/subject/{subject?}/assessment/{assessment?}', [StudentAssessmentController::class, 'AssessmentSubmission'])->name('student.assessment.detail.post');
 
     // Subject
-    Route::get('/subject', function () {
-        return view('pages.student.subject.view');
-    })->name('student.subject.view');
+    Route::get('/subject', [StudentSubjectController::class, 'showSubject'])->name('student.subject.view');
 
     Route::get('/subject/add', function () {
         return view('pages.student.subject.add');
     })->name('student.subject.add');
 
     // Profile
-    Route::get('/profile', function () {
-        return view('pages.student.profile.profile');
-    })->name('student.profile');
-
-    Route::get('/profile/edit', function () {
-        return view('pages.student.profile.edit');
-    })->name('student.profile.edit');
+    Route::get('/profile', [StudentProfileController::class, 'showProfile'])->name('student.profile');
+    Route::get('/profile/edit', [StudentProfileController::class, 'showEditProfile'])->name('student.profile.edit');
+    Route::post('/profile/edit', [StudentProfileController::class, 'edit'])->name('student.profile.editing');
 });
 
 

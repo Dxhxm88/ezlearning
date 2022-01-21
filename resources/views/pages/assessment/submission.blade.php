@@ -7,6 +7,12 @@
         </div>
     </div>
 
+    <div class="row">
+        <div class="col d-flex justify-content-start">
+            <a href="{{ route('assessment.view', ['subject' => request()->route('subject'), 'class' =>request()->route('class')]) }}" class="btn btn-secondary">Back</a>
+        </div>
+    </div>
+
 <div class="cotainer">
     <table class="table table-hover">
         <thead>
@@ -18,24 +24,14 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>Assessment 1</td>
-                <td>6 Alpha</td>
-                <td><a href="#" class="link-dark">View</a></td>
-                <td>Delete</td>
-            </tr>
-            <tr>
-                <td>Assessment 2</td>
-                <td>6 Alpha</td>
-                <td>View</td>
-                <td>Delete</td>
-            </tr>
-            <tr>
-                <td>Assessment 3</td>
-                <td>6 Alpha</td>
-                <td>View</td>
-                <td>Delete</td>
-            </tr>
+            @foreach ($subs as $sub)
+                <tr>
+                    <td>{{ $sub->name }}</td>
+                    <td>{{ $sub->created_at }}</td>
+                    <td><a href="{{ asset($sub->submission_file) }}" target="_blank"class="link-dark">View</a></td>
+                    <td>Delete</td>
+                </tr>
+            @endforeach
         </tbody>
     </table>
 </div>

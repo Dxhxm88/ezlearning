@@ -19,8 +19,10 @@ class CreateAssessmentsTable extends Migration
             $table->date('date_due');
             $table->integer('full_grade');
             $table->decimal('weightage');
-            $table->foreignId('student_id')->constrained('students')->onDelete('cascade');
             $table->foreignId('subject_id')->constrained('subjects')->onDelete('cascade');
+            $table->foreignId('teacher_id')->constrained('teachers')->onDelete('cascade');
+            $table->foreignId('classs_id')->constrained('classses')->onDelete('cascade');
+            $table->string('assignment_file_path');
             $table->timestamps();
         });
     }

@@ -7,39 +7,38 @@
     </div>
 </div>
 
+<div class="row">
+    <div class="col d-flex justify-content-start">
+        <a href="{{ route('subject.mysubject.detail', ['id' => request()->route('subject')]) }}" class="btn btn-secondary">Back</a>
+    </div>
+    <div class="col d-flex justify-content-end">
+        <a href="{{ route('assessment.class.add', ['subject' => request()->route('subject'), 'class' =>request()->route('class')]) }}" class="btn btn-primary">Add New Assessment</a>
+    </div>
+</div>
+
 <div class="cotainer">
     <table class="table table-hover">
         <thead>
             <tr>
                 <th>Assessment Name</th>
-                <th>Class</th>
+                <th>Due</th>
+                <th>Attachment</th>
                 <th>Submission</th>
-                <th></th>
-                <th></th>
+                {{-- <th></th>
+                <th></th> --}}
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>Assessment 1</td>
-                <td>6 Alpha</td>
-                <td><a href="{{ route('assessment.submission') }}" class="link-dark">View</a></td>
-                <td>Edit</td>
-                <td>Delete</td>
-            </tr>
-            <tr>
-                <td>Assessment 2</td>
-                <td>6 Alpha</td>
-                <td>View</td>
-                <td>Edit</td>
-                <td>Delete</td>
-            </tr>
-            <tr>
-                <td>Assessment 3</td>
-                <td>6 Alpha</td>
-                <td>View</td>
-                <td>Edit</td>
-                <td>Delete</td>
-            </tr>
+            @foreach ($assessments as $assessment)
+                <tr>
+                    <td>{{ $assessment->desc }}</td>
+                    <td>{{ date('d M Y', strtotime($assessment->date_due)) }}</td>
+                    <td><a href="{{ asset($assessment->assignment_file_path) }}" target="_blank"class="link-dark">View</a></td>
+                    <td><a href="{{ route('assessment.submission', ['subject' => request()->route('subject'), 'class' =>request()->route('class'), 'assessment'=> $assessment->id]) }}" class="link-dark">View</a></td>
+                    {{-- <td>Edit</td>
+                    <td>Delete</td> --}}
+                </tr>
+            @endforeach
         </tbody>
     </table>
 </div>

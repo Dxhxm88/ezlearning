@@ -9,7 +9,7 @@
             </a>
         </li>
 
-        <li class="dropdown">
+        {{-- <li class="dropdown">
             <a href="#" class="nav-link link-dark dropdown-toggle  text-truncate" id="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
                 Assessment
             </a>
@@ -17,7 +17,7 @@
                 <li><a class="dropdown-item" href="{{ route('assessment.add') }}">Upload Assessment</a></li>
                 <li><a class="dropdown-item" href="{{ route('assessment.view') }}">View Assessment</a></li>
             </ul>
-        </li>
+        </li> --}}
 
 
         <li>

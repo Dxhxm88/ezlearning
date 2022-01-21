@@ -18,6 +18,7 @@
             <thead>
                 <tr>
                     <th>Class Name</th>
+                    <th>Assessment</th>
                     <th>View Student</th>
                     <th>Action</th>
                 </tr>
@@ -26,6 +27,7 @@
                 @foreach ($classses as $class)
                     <tr>
                         <td>{{ $class->name }}</td>
+                        <td><a href="{{ route('assessment.view', [ 'subject' => request()->route('id'), 'class' => $class->id]) }}" class="link-dark">View</a></td>
                         <td><a href="{{ route('class.detail', $class->id) }}" class="link-dark">View</a></td>
                         <td><a class="link-dark" href="{{ route('subject.mysubject.class.delete', [ 'subject' => request()->route('id'), 'id' => $class->id]) }}" onclick="return confirm('Are sure to delete data?')">Remove</a></td>
                     </tr>

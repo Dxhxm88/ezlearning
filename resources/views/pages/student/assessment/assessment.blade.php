@@ -10,75 +10,20 @@
         <div class="row g-0">
             <div class="col-">
                 <div class="card">
-                    <div class="card-header">ASSESSMENT DETAIL</div>
+                    <div class="card-header">SUBMISSION</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('register') }}">
+                        <form method="POST" action="{{ route('student.assessment.detail.post', ['subject' => request()->route('subject'), 'assessment'=> request()->route('assessment')]) }}" enctype="multipart/form-data">
                             @csrf
 
+                            <input type="hidden" name="assessment_id" value="{{ request()->route('assessment') }}">
                             <div class="row mb-3">
-                                <label for="desc" class="col-md-4 col-form-label text-md-end">Teacher Name</label>
+                                <label for="file" class="col-md-2 col-form-label text-md-end">Choose File</label>
 
                                 <div class="col">
-                                    <input id="desc" type="text" class="form-control @error('desc') is-invalid @enderror" name="desc" value="{{ old('desc') }}" required autocomplete="desc" autofocus>
+                                    <input id="file" type="file" class="form-control @error('file') is-invalid @enderror" name="file" value="{{ old('file') }}" required autocomplete="file">
 
-                                    @error('desc')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label for="desc" class="col-md-4 col-form-label text-md-end">Subject Name</label>
-
-                                <div class="col">
-                                    <input id="desc" type="text" class="form-control @error('desc') is-invalid @enderror" name="desc" value="{{ old('desc') }}" required autocomplete="desc" autofocus>
-
-                                    @error('desc')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label for="desc" class="col-md-4 col-form-label text-md-end">Due Date</label>
-
-                                <div class="col">
-                                    <input id="desc" type="text" class="form-control @error('desc') is-invalid @enderror" name="desc" value="{{ old('desc') }}" required autocomplete="desc" autofocus>
-
-                                    @error('desc')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label for="desc" class="col-md-4 col-form-label text-md-end">Attachment</label>
-
-                                <div class="col">
-                                    <input id="desc" type="text" class="form-control @error('desc') is-invalid @enderror" name="desc" value="{{ old('desc') }}" required autocomplete="desc" autofocus>
-
-                                    @error('desc')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label for="upfile" class="col-md-4 col-form-label text-md-end">Choose File</label>
-
-                                <div class="col">
-                                    <input id="upfile" type="file" class="form-control @error('upfile') is-invalid @enderror" name="upfile" value="{{ old('upfile') }}" required autocomplete="upfile">
-
-                                    @error('upfile')
+                                    @error('file')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -89,9 +34,9 @@
                             <div class="row mb-0">
                                 <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn btn-primary">
-                                        {{ __('Register') }}
+                                        {{ __('Submit') }}
                                     </button>
-                                    <a href="{{ route('student.assessment.view') }}" class="btn btn-secondary ms-4">
+                                    <a href="{{ route('student.assessment.view.subject', ['subject' => request()->route('subject')]) }}" class="btn btn-secondary ms-4">
                                         Back
                                     </a>
                                 </div>
