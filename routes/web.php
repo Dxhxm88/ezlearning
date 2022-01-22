@@ -38,64 +38,6 @@ Route::get('/', function () {
     return view('pages.index');
 })->name('index');
 
-Route::get('/tt', function () {
-    $teacher = Teacher::find(1)->id;
-    $student = Student::find(1)->classs_id;
-    $student_id = Student::find(1)->id;
-
-    // $isFound = $teacher->subjects()->find(5)->classses;
-    // return Subject::find(1)->classses()->wherePivot('teacher_id', 1)->get();
-    // return Submission::find(1)->students();
-
-    $tt = Classs::find(1)->assessments()->where('teacher_id', $teacher)->where('subject_id', 1)->get();
-
-
-    // $dd = DB::table('submissions')
-    //     ->join('students', 'submissions.student_id', '=', 'students.id')
-    //     // ->join('assessments', 'submissions.assessment_id', '=', 'assessments.id')
-    //     // ->select('students.name', 'submissions.*', 'assessments.*')
-    //     ->select('students.name', 'submissions.*')
-    //     ->where('submissions.assessment_id', 1)
-    //     ->get();
-    // // return $dd;
-    // // return $;
-
-    // $h = DB::table('classs_subject')
-    //     ->join('classses', 'classs_subject.classs_id', '=', 'classses.id')
-    //     ->join('subjects', 'classs_subject.subject_id', '=', 'subjects.id')
-    //     ->join('teachers', 'classs_subject.teacher_id', '=', 'teachers.id')
-    //     ->select('subjects.name', 'subjects.id as subject_id', 'teachers.name as teacher_name')
-    //     ->where('classs_subject.classs_id', $student)
-    //     ->get();
-
-    // $t = DB::table('assessments')
-    //     ->join('subjects', 'assessments.subject_id', '=', 'subjects.id')
-    //     ->join('teachers', 'assessments.teacher_id', '=', 'teachers.id')
-    //     // ->join('submissions', 'assessments.id', '=', 'submissions.assessment_id')
-    //     // ->select('assessments.*', 'subjects.name as subject_name', 'teachers.name as teacher_name', 'submissions.*')
-    //     ->select('assessments.*', 'subjects.name as subject_name', 'teachers.name as teacher_name')
-    //     ->where('assessments.classs_id', $student)
-    //     ->where('assessments.subject_id', 1)
-    //     ->get();
-
-    $t = DB::table('submissions')
-        ->join('assessments', 'submissions.assessment_id', '=', 'assessments.id')
-        ->select('submissions.*')
-        ->where('submissions.assessment_id', 1)
-        ->where('submissions.student_id', 2)
-        ->get();
-
-    $t = DB::table('submissions')
-        ->join('assessments', 'submissions.assessment_id', '=', 'assessments.id')
-        ->select('submissions.*')
-        ->where('submissions.assessment_id', 1)
-        ->where('submissions.student_id', 2)
-        ->get();
-
-    $k = Assessment::find(1)->submissions;
-    return $t;
-});
-
 // Register
 Route::get('/signup/student', [ControllersRegisterController::class, 'showStudentSignup'])->name('student.signup');
 Route::get('/signup/teacher', [ControllersRegisterController::class, 'showSignup'])->name('teacher.signup');
@@ -177,12 +119,12 @@ Route::prefix('student')->middleware('auth:student')->group(function () {
     Route::get('/assessment/subject/{subject?}/assessment/{assessment?}', [StudentAssessmentController::class, 'showSubmission'])->name('student.assessment.detail');
     Route::post('/assessment/subject/{subject?}/assessment/{assessment?}', [StudentAssessmentController::class, 'AssessmentSubmission'])->name('student.assessment.detail.post');
 
-    // Subject
+    // // Subject
     Route::get('/subject', [StudentSubjectController::class, 'showSubject'])->name('student.subject.view');
 
-    Route::get('/subject/add', function () {
-        return view('pages.student.subject.add');
-    })->name('student.subject.add');
+    // Route::get('/subject/add', function () {
+    //     return view('pages.student.subject.add');
+    // })->name('student.subject.add');
 
     // Profile
     Route::get('/profile', [StudentProfileController::class, 'showProfile'])->name('student.profile');
