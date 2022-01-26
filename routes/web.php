@@ -38,6 +38,17 @@ Route::get('/', function () {
     return view('pages.index');
 })->name('index');
 
+Route::get('/tt', function () {
+    $s = Teacher::find(3)->subjects()->find(2)->classses()->where('teacher_id', 1)->count();
+    if ($s != 0) {
+        return "Still avail";
+    } else {
+        return "not avail";
+    }
+
+    return $s;
+});
+
 // Register
 Route::get('/signup/student', [ControllersRegisterController::class, 'showStudentSignup'])->name('student.signup');
 Route::get('/signup/teacher', [ControllersRegisterController::class, 'showSignup'])->name('teacher.signup');

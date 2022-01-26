@@ -47,7 +47,7 @@ class ProfileController extends Controller
         $student->classs_id = $request->classs;
 
         if ($student->save()) {
-            return redirect(route('student.profile'));
+            return redirect(route('student.profile'))->with(['message' => 'Profile updated', 'alert' => 'alert-success']);
         }
 
         return redirect()->route('student.profile.edit');

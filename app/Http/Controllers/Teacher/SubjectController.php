@@ -144,6 +144,30 @@ class SubjectController extends Controller
     {
         Teacher::find(Auth::user()->id)->subjects()->find($subject)->classses()->detach($id);
 
-        return redirect()->route('subject.mysubject.detail', $subject);
+        $isSubject_class_exist = $this->checkClassSubject($subject);
+
+        if (!$isSubject_class_exist) {
+            $this->deletesubject($subject);
+            return redirect()->route('subject.mysubject')->with(['message' => 'Subject deleted', 'alert' => 'alert-danger']);
+        }
+
+        return redirect()->route('subject.mysubject.detail', $subject)->with(['message' => 'Class deleted', 'alert' => 'alert-danger']);
+    }
+
+    public function deletesubject($subject)
+    {
+        Auth::user()->subjects()->detach($subject);
+    }
+
+    public function checkClassSubject($subject)
+    {
+        $teacherid = Auth::user()->id;
+
+        $isStill = Teacher::find($teacherid)->subjects()->find($subject)->classses()->where('teacher_id', $teacherid)->count();
+
+        if ($isStill != 0) {
+            return true;
+        }
+        return false;
     }
 }

@@ -7,6 +7,8 @@
     </div>
 </div>
 
+@include('inc.alert')
+
 <div class="row">
     <div class="col d-flex justify-content-start">
         <a href="{{ route('student.assessment.view') }}" class="btn btn-secondary">Back</a>

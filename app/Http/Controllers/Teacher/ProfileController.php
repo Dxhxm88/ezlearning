@@ -46,7 +46,7 @@ class ProfileController extends Controller
         $user->phone = $request->phone;
 
         if ($user->save()) {
-            return redirect(route('user.profile'));
+            return redirect()->route('user.profile')->with(['message' => 'Profile updated', 'alert' => 'alert-success']);
         }
 
         return redirect()->route('user.edit');

@@ -59,7 +59,7 @@ class AssessmentController extends Controller
         } catch (\Exception $e) {
             throw new \Exception('Failed to create assessment. ' . $e->getMessage());
         }
-        return redirect()->route('assessment.view', ['subject' => $subject, 'class' => $class]);
+        return redirect()->route('assessment.view', ['subject' => $subject, 'class' => $class])->with(['message' => 'Assessment added', 'alert' => 'alert-success']);
     }
 
     public function showSubmission($subject, $class, $assessment)

@@ -86,6 +86,6 @@ class AssessmentController extends Controller
             throw new \Exception('Failed to submit submission. ' . $e->getMessage());
         }
 
-        return redirect()->route('student.assessment.view.subject', ['subject' => $subject]);
+        return redirect()->route('student.assessment.view.subject', ['subject' => $subject])->with(['message' => 'Submission added', 'alert' => 'alert-success']);
     }
 }
