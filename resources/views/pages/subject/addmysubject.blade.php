@@ -7,11 +7,7 @@
         </div>
     </div>
 
-    @if(session()->has('message'))
-    <div class="alert alert-danger">
-        {{ session('message') }}
-    </div>
-    @endif
+    @include('inc.alert')
 
     <div class="row g-0">
         <div class="col-">

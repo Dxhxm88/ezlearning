@@ -25,12 +25,12 @@ class SigninController extends Controller
 
         if ($this->checkUser($request->email) == 1) {
             if (Auth::guard('student')->attempt($credentials)) {
-                return redirect()->route('student.home');
+                return redirect()->route('student.home')->with(['message' => 'Login success', 'alert' => 'alert-success']);
             }
         }
 
         if (Auth::attempt($credentials)) {
-            return redirect()->route('homepage');
+            return redirect()->route('homepage')->with(['message' => 'Login success', 'alert' => 'alert-success']);
         }
 
         return redirect(route('signin'));
@@ -45,7 +45,7 @@ class SigninController extends Controller
 
         $credentials = $request->only('email', 'password');
         if (Auth::guard('student')->attempt($credentials)) {
-            return redirect()->intended(route('student.home'));
+            return redirect()->intended()->route('student.home')->with(['message' => 'Login success', 'alert' => 'alert-success']);
         }
 
         return redirect(route('signin'));

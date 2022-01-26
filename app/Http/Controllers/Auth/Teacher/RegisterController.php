@@ -21,7 +21,7 @@ class RegisterController extends Controller
 
         $this->guard()->login($user);
 
-        return redirect(route('homepage'));
+        return redirect()->route('homepage')->with(['message' => 'Teacher registration success', 'alert' => 'alert-success']);
     }
 
     public function validator(array $data)

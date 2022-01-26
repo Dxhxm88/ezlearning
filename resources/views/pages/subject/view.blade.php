@@ -7,6 +7,8 @@
         </div>
     </div>
 
+    @include('inc.alert')
+
     <div class="row">
         <div class="col d-flex justify-content-start">
             <a href="{{ route('subject.mysubject') }}" class="btn btn-secondary">Back</a>
@@ -31,6 +33,7 @@
                         <td>{{ $subject->name }}</td>
                         <td><a href="{{ route('subject.edit', $subject->id) }}" class="link-dark">Edit</a></td>
                         <td><a class="link-dark" href="{{ route('subject.delete', $subject->id) }}" onclick="return confirm('Are sure to delete data?')">Delete</a></td>
+                        {{-- <td><a data-bs-toggle="modal" data-bs-target="#deleteModal" class="link-dark" href="#">Delete</a></td> --}}
                     </tr>
                 @endforeach
             </tbody>

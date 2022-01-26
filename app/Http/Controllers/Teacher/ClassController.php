@@ -19,7 +19,6 @@ class ClassController extends Controller
 
     public function showAddClass()
     {
-        // $subjects = Subject::all();
         return view('pages.class.add');
     }
 
@@ -29,7 +28,7 @@ class ClassController extends Controller
             'name' => $request->name
         ]);
 
-        return redirect()->route('class.list');
+        return redirect()->route('class.list')->with(['message' => 'Class added', 'alert' => 'alert-success']);
     }
 
     public function showEdit($id)
@@ -46,7 +45,7 @@ class ClassController extends Controller
         $class->name = $request->name;
         $class->save();
 
-        return redirect()->route('class.list');
+        return redirect()->route('class.list')->with(['message' => 'Class updated', 'alert' => 'alert-success']);
     }
 
     public function showDetail($id)
@@ -61,7 +60,7 @@ class ClassController extends Controller
 
         $class->delete();
 
-        return redirect()->route('class.list');
+        return redirect()->route('class.list')->with(['message' => 'Class deleted', 'alert' => 'alert-danger']);
     }
 
 

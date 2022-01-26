@@ -7,6 +7,8 @@
         </div>
     </div>
 
+    @include('inc.alert')
+
     <div class="row">
         <div class="col d-flex justify-content-end">
             <a href="{{ route('class.add') }}" class="btn btn-primary">Add Class</a>

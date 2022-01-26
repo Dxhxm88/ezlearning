@@ -7,6 +7,8 @@
         </div>
     </div>
 
+    @include('inc.alert')
+
     <div class="row">
         <div class="col d-flex justify-content-end">
             <a href="{{ route('subject.list') }}" class="btn btn-secondary mx-2">View All Subjects</a>

@@ -43,7 +43,7 @@ class SubjectController extends Controller
             'name' => $request->name,
         ]);
 
-        return redirect()->route('subject.list');
+        return redirect()->route('subject.list')->with(['message' => 'Subject added', 'alert' => 'alert-success']);
     }
 
     public function delete($id)
@@ -51,7 +51,7 @@ class SubjectController extends Controller
         $subject = Subject::find($id);
 
         $subject->delete();
-        return redirect()->route('subject.list');
+        return redirect()->route('subject.list')->with(['message' => 'Subject deleted', 'alert' => 'alert-danger']);
     }
 
     public function showEdit($id)
@@ -73,7 +73,7 @@ class SubjectController extends Controller
 
         $subject->save();
 
-        return redirect()->route('subject.list');
+        return redirect()->route('subject.list')->with(['message' => 'Subject updated', 'alert' => 'alert-success']);
     }
 
     public function showmysubject()
@@ -105,16 +105,16 @@ class SubjectController extends Controller
         if ($isSubject != null) {
             $isFound = $teacher->subjects()->find($subject)->classses()->find($class);
             if ($isFound != null) {
-                return redirect()->back()->with(['message' => 'Subject and class already exist']);
+                return redirect()->back()->with(['message' => 'Subject and class already exist', 'alert' => 'alert-danger']);
             }
 
             $teacher->subjects()->find($subject)->classses()->attach($class);
             $teacher->subjects()->find($subject)->classses()->updateExistingPivot($class, ['teacher_id' => Auth::user()->id]);
-            return redirect()->route('subject.mysubject');
+            return redirect()->route('subject.mysubject')->with(['message' => 'Subject and class added', 'alert' => 'alert-success']);
         }
 
         if ($isExist != null) {
-            return redirect()->back()->with(['message' => 'Subject and class already exist']);
+            return redirect()->back()->with(['message' => 'Subject and class already exist', 'alert' => 'alert-danger']);
         }
 
         $teacher->subjects()->attach($request->subject);
@@ -122,14 +122,14 @@ class SubjectController extends Controller
         $teacher->subjects()->find($subject)->classses()->attach($class);
         $teacher->subjects()->find($subject)->classses()->updateExistingPivot($class, ['teacher_id' => Auth::user()->id]);
 
-        return redirect()->route('subject.mysubject');
+        return redirect()->route('subject.mysubject')->with(['message' => 'Subject and class added', 'alert' => 'alert-success']);
     }
 
     public function deletemysubject($id)
     {
         Auth::user()->subjects()->detach($id);
 
-        return redirect()->route('subject.mysubject');
+        return redirect()->route('subject.mysubject')->with(['message' => 'Subject deleted', 'alert' => 'alert-danger']);
     }
 
     public function showmysubjectdetail($id)

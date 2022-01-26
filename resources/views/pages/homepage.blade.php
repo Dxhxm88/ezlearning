@@ -7,6 +7,8 @@
     </div>
 </div>
 
+@include('inc.alert')
+
     <div class="p-2 mb-4 bg-light rounded-3">
         <div class="container-fluid py-5">
             <h1 class="display-5 fw-bold">WELCOME TO EZ-LEARNING SYSTEM</h1>
