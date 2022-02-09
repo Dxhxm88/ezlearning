@@ -2,7 +2,7 @@
 
 EZ Learning is a system that has been developed for a secondary school, Sekolah Menengah Kebangsaan Zainab 2 (SMK Z2). This system developed will help the school to manage submission of assignment between teachers and students.
 
-## This is Ez learning erd
+## Ez learning ERD
 ![ERD](https://github.com/Dxhxm88/ezlearning/blob/master/public/Images/erd.PNG)
 
 ## How to install
