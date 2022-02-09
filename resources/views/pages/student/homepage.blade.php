@@ -11,8 +11,9 @@
 
 <div class="p-2 mb-4 rounded-3 text-light" style="background-color: #0e99b8">
     <div class="container-fluid py-5">
-        <h1 class="display-5 fw-bold">WELCOME TO EZ LEARNING</h1>
-        <p class="col-md-8 fs-4 text-dark fst-italic">The objectives of this new system are to improve the submission of
+        <h1 class="display-5 fw-bold text-center">WELCOME TO EZ LEARNING</h1>
+        <p class="col-md-auto fs-4 text-dark fst-italic" style="text-align: justify">The objectives of this new system
+            are to improve the submission of
             assignment
             in the
             secondary school of SMK Z2. Besides, to provide a suitable platform for students and facilitate students to

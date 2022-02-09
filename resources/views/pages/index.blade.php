@@ -8,7 +8,9 @@
             <img src="{{ asset('Images/school-logo.png') }}"
                 class="col-md-6 float-md-end mb-3 ms-md-3 w-25 rounded-circle" alt="...">
             <h1 class="display-5 fw-bold">EZ LEARNING</h1>
-            <p class="col-md-8 fs-4 text-dark fst-italic">
+            <p class="col-md-8 fs-4 text-dark fst-italic" style="
+            color: #fbe8ce !important;
+        ">
                 EZ Learning is a system that has been developed for a secondary
                 school,
                 Sekolah
