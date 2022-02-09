@@ -2,6 +2,8 @@
 
 EZ Learning is a system that has been developed for a secondary school, Sekolah Menengah Kebangsaan Zainab 2 (SMK Z2). This system developed will help the school to manage submission of assignment between teachers and students.
 
+The objectives of this new system are to improve the submission of assignment in the secondary school of SMK Z2. Besides, to provide a suitable platform for students and facilitate students to submit assignments. Moreover, to make it easier for teachers to store assignment submission data that has been submitted by students. Furthemore, to facilitate teachers to assign assignments to students in various formats such as Pdf, Microsoft Word and others. Next, to facilitate teachers and student to use only one system medium and do not need to use other applications. Lastly, to train and introduce students to how to use technology easily and correctly.
+
 ## Ez learning ERD
 ![ERD](https://github.com/Dxhxm88/ezlearning/blob/master/public/Images/erd.PNG)
 
