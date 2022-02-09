@@ -13,15 +13,9 @@ use App\Http\Controllers\Teacher\ClassController;
 use App\Http\Controllers\Teacher\HomeController;
 use App\Http\Controllers\Teacher\ProfileController;
 use App\Http\Controllers\Teacher\SubjectController;
-use App\Models\Assessment;
 use App\Models\Classs;
-use App\Models\Student;
-use App\Models\Subject;
-use App\Models\Submission;
-use App\Models\Teacher;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,12 +33,7 @@ Route::get('/', function () {
 })->name('index');
 
 Route::get('/tt', function () {
-    $s = Teacher::find(3)->subjects()->find(2)->classses()->where('teacher_id', 1)->count();
-    if ($s != 0) {
-        return "Still avail";
-    } else {
-        return "not avail";
-    }
+    $s  = Classs::all();
 
     return $s;
 });
@@ -130,7 +119,7 @@ Route::prefix('student')->middleware('auth:student')->group(function () {
     Route::get('/assessment/subject/{subject?}/assessment/{assessment?}', [StudentAssessmentController::class, 'showSubmission'])->name('student.assessment.detail');
     Route::post('/assessment/subject/{subject?}/assessment/{assessment?}', [StudentAssessmentController::class, 'AssessmentSubmission'])->name('student.assessment.detail.post');
 
-    // // Subject
+    // Subject
     Route::get('/subject', [StudentSubjectController::class, 'showSubject'])->name('student.subject.view');
 
     // Route::get('/subject/add', function () {

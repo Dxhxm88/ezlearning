@@ -33,7 +33,7 @@ class SigninController extends Controller
             return redirect()->route('homepage')->with(['message' => 'Login success', 'alert' => 'alert-success']);
         }
 
-        return redirect(route('signin'));
+        return redirect()->route('signin')->with(['message' => 'Failed login', 'alert' => 'alert-danger']);
     }
 
     public function studentlogin(Request $request)
