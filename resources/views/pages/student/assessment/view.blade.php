@@ -29,7 +29,6 @@
         </thead>
         <tbody>
             @foreach ($assessments as $assessment)
-            @foreach ($subs as $sub)
             <tr>
                 <td>{{ $assessment->desc }}</td>
                 <td>
@@ -46,16 +45,19 @@
                     </a>
                 </td>
                 <td>
+                    @foreach ($subs as $sub)
                     @if ($assessment->id == $sub->assessment_id)
                     @if ($sub->grade == null)
                     Pending
                     @else
                     {{ $sub->grade }}
                     @endif
+                    @else
+                    No submission
                     @endif
+                    @endforeach
                 </td>
             </tr>
-            @endforeach
             @endforeach
         </tbody>
     </table>
