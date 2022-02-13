@@ -67,6 +67,8 @@ Route::middleware('auth:teacher')->group(function () {
     Route::post('/assessment/subject/{subject?}/class/{class?}/add', [AssessmentController::class, 'addClassAssessment'])->name('assessment.class.adding');
 
     Route::get('/assessment/subject/{subject?}/class/{class?}/{assessment?}/submission', [AssessmentController::class, 'showSubmission'])->name('assessment.submission');
+    Route::get('/assessment/subject/{subject?}/class/{class?}/{assessment?}/submission/{submission?}/grade', [AssessmentController::class, 'addGrade'])->name('assessment.addgrade');
+    Route::post('/assessment/subject/{subject?}/class/{class?}/{assessment?}/submission/{submission?}/grade', [AssessmentController::class, 'grading'])->name('assessment.grading');
     // Route::get('/assessment/subject/{subject?}/class/{class?}/submission', [AssessmentController::class, 'showSubmission'])->name('assessment.submission');
 
     // Class

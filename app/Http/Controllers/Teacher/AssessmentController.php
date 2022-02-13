@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Assessment;
 use App\Models\Classs;
 use App\Models\Subject;
+use App\Models\Submission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -71,5 +72,25 @@ class AssessmentController extends Controller
             ->where('submissions.assessment_id', $assessment)
             ->get();
         return view('pages.assessment.submission', compact('subs'));
+    }
+
+    public function addGrade($subject, $class, $assessment, $submission)
+    {
+        $sub = Submission::find($submission);
+        return view('pages.assessment.addgrade', compact('sub'));
+    }
+
+    public function grading($subject, $class, $assessment, $submission, Request $request)
+    {
+
+        $request->validate([
+            'grade' => ['required', 'numeric'],
+        ]);
+
+        $sub = Submission::find($submission);
+        $sub->grade = $request->grade;
+        $sub->save();
+
+        return redirect()->route('assessment.submission', ['subject' => $subject, 'class' => $class, 'assessment' => $assessment])->with(['message' => 'Grade added', 'alert' => 'alert-success']);
     }
 }

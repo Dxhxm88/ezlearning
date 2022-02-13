@@ -24,19 +24,38 @@
                 <th>Subject</th>
                 <th>Teacher Name</th>
                 <th>Submission</th>
+                <th>Grade</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($assessments as $assessment)
+            @foreach ($subs as $sub)
             <tr>
                 <td>{{ $assessment->desc }}</td>
-                <td><a href="{{ asset($assessment->assignment_file_path) }}" target="_blank" class="link-dark">View</a>
+                <td>
+                    <a href="{{ asset($assessment->assignment_file_path) }}" target="_blank" class="link-dark">
+                        View
+                    </a>
                 </td>
                 <td>{{ $assessment->subject_name }}</td>
                 <td>{{ $assessment->teacher_name }}</td>
-                <td><a href="{{ route('student.assessment.detail', ['subject' => request()->route('subject'), 'assessment'=> $assessment->id]) }}"
-                        class="link-dark">View</a></td>
+                <td>
+                    <a href="{{ route('student.assessment.detail', ['subject' => request()->route('subject'), 'assessment'=> $assessment->id]) }}"
+                        class="link-dark">
+                        View
+                    </a>
+                </td>
+                <td>
+                    @if ($assessment->id == $sub->assessment_id)
+                    @if ($sub->grade == null)
+                    Pending
+                    @else
+                    {{ $sub->grade }}
+                    @endif
+                    @endif
+                </td>
             </tr>
+            @endforeach
             @endforeach
         </tbody>
     </table>

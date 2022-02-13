@@ -23,7 +23,9 @@ class AssessmentController extends Controller
             ->where('assessments.subject_id', $subject)
             ->get();
 
-        return view('pages.student.assessment.view', compact('assessments'));
+        $subs = Submission::where('student_id', $student->id)->get();
+
+        return view('pages.student.assessment.view', compact('assessments', 'subs'));
     }
 
     public function getUser()
